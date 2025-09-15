@@ -1,0 +1,35 @@
+{
+  "name": "PIKAMEOW",
+  "description": "PIKAMEOW, the Silver Tabby Champion, shines with dazzling stripes and piercing emerald eyes. At Level 15, this feline warrior embodies both elegance and might. Graceful yet powerful, PIKAMEOW's presence is as enchanting as it is formidable.",
+  "image": "https://green-imperial-swallow-885.mypinata.cloud/ipfs/bafybeieu4hxv4rvhgerymw4ailf7et6eu2wx5e4riwcv5t5rqn4nxeipze",
+  "attributes": [
+    {
+      "trait_type": "Level",
+      "value": 15,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Health",
+      "value": 100,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Cuteness",
+      "value": 130,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Power",
+      "value": 120,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Species",
+      "value": "Domestic Shorthair Tabby"
+    },
+    {
+      "trait_type": "Pattern",
+      "value": "Silver & Black Stripes"
+    }
+  ]
+}
