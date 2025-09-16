@@ -21,7 +21,7 @@
 | 合约 | 本地测试 | Sepolia 测试 | 覆盖率 |
 |------|----------|--------------|--------|
 | SimpleERC20 | 49/49 ✅ | 28/28 ✅ | 100% |
-| SimpleNFT | 39/39 ✅ | 25/26 ✅ | 100% |
+| SimpleNFT | 39/39 ✅ | 26/26 ✅ | 100% |
 
 ## 🔧 快速开始
 
@@ -100,9 +100,8 @@ metadata/          # 元数据
 INFURA_API_KEY=your_infura_project_id
 ETHERSCAN_API_KEY=your_etherscan_api_key
 PRIVATE_KEY=your_private_key
+PRIVATE_KEY_2=your_private_key_2
+PRIVATE_KEY_3=your_private_key_3
+PRIVATE_KEY_4=your_private_key_4
 ```
 
----
-
-**项目状态**: ✅ 完成  
-**最后更新**: 2025年01月14日
