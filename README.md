@@ -16,12 +16,20 @@
 - **参数**: Simple NFT Collection (SNFT), 最大供应量 10,000
 - **元数据**: [IPFS 链接](https://green-imperial-swallow-885.mypinata.cloud/ipfs/bafkreigy6ozjkla3zvkspcqxygnvmnuttvsacnqkmk6gonfwmkkzbwcvim)
 
+### BeggingContract 合约
+- **网络**: Sepolia Testnet
+- **地址**: `0x0B60569fc11e88B312582Cb1F94b7E8abE25051e`
+- **验证**: ✅ [Etherscan](https://sepolia.etherscan.io/address/0x0B60569fc11e88B312582Cb1F94b7E8abE25051e#code)
+- **功能**: 乞讨合约，支持时间限制的捐赠和排行榜
+- **时间限制**: 2025年9月16日 10:44:20 - 11:14:20 (UTC+8)
+
 ## 📊 测试结果
 
 | 合约 | 本地测试 | Sepolia 测试 | 覆盖率 |
 |------|----------|--------------|--------|
 | SimpleERC20 | 49/49 ✅ | 28/28 ✅ | 100% |
 | SimpleNFT | 39/39 ✅ | 26/26 ✅ | 100% |
+| BeggingContract | 16/16 ✅ | 16/16 ✅ | 100% |
 
 ## 🔧 快速开始
 
@@ -40,10 +48,12 @@ npx hardhat compile
 # 本地网络
 npx hardhat ignition deploy ignition/modules/SimpleToken.js
 npx hardhat ignition deploy ignition/modules/SimpleNFT.js
+npx hardhat ignition deploy ignition/modules/BeggingContract.js
 
 # Sepolia 网络
 npx hardhat ignition deploy ignition/modules/SimpleToken.js --network sepolia
 npx hardhat ignition deploy ignition/modules/SimpleNFT.js --network sepolia
+npx hardhat ignition deploy ignition/modules/BeggingContract.js --network sepolia
 ```
 
 ### 运行测试
@@ -54,6 +64,7 @@ npx hardhat test
 # Sepolia 测试
 npx hardhat test test/SimpleERC20.sepolia.js --network sepolia
 npx hardhat test test/SimpleNFT.sepolia.js --network sepolia
+npx hardhat test test/BeggingContract.sepolia.js --network sepolia
 ```
 
 ### 验证合约
@@ -63,6 +74,9 @@ npx hardhat verify --network sepolia 0xbA4e409941b679587a6F685F2146E47d64B72dD7 
 
 # NFT
 npx hardhat verify --network sepolia 0x77a4076ddb25B1a6a710B5E5fd286515E72fEcf3 "Simple NFT Collection" "SNFT" 10000
+
+# BeggingContract
+npx hardhat verify --network sepolia 0x0B60569fc11e88B312582Cb1F94b7E8abE25051e 1758033860 1758035660
 ```
 
 ## 📁 项目结构
@@ -70,17 +84,21 @@ npx hardhat verify --network sepolia 0x77a4076ddb25B1a6a710B5E5fd286515E72fEcf3 
 ```
 contracts/          # 智能合约
 ├── SimpleERC20.sol
-└── SimpleNFT.sol
+├── SimpleNFT.sol
+└── BeggingContract.sol
 
 test/              # 测试文件
 ├── SimpleERC20.js
 ├── SimpleERC20.sepolia.js
 ├── SimpleNFT.js
-└── SimpleNFT.sepolia.js
+├── SimpleNFT.sepolia.js
+├── BeggingContract.js
+└── BeggingContract.sepolia.js
 
 ignition/modules/  # 部署模块
 ├── SimpleToken.js
-└── SimpleNFT.js
+├── SimpleNFT.js
+└── BeggingContract.js
 
 metadata/          # 元数据
 └── 1.json
@@ -92,6 +110,7 @@ metadata/          # 元数据
 - **NFT 合约**: [Etherscan](https://sepolia.etherscan.io/address/0x77a4076ddb25B1a6a710B5E5fd286515E72fEcf3#code)
 - **NFT 市场**: [Rarible 测试网](https://testnet.rarible.com/collection/0x77a4076ddb25b1a6a710b5e5fd286515e72fecf3)
 - **NFT 元数据**: [IPFS](https://green-imperial-swallow-885.mypinata.cloud/ipfs/bafkreigy6ozjkla3zvkspcqxygnvmnuttvsacnqkmk6gonfwmkkzbwcvim)
+- **BeggingContract**: [Etherscan](https://sepolia.etherscan.io/address/0x0B60569fc11e88B312582Cb1F94b7E8abE25051e#code)
 
 ## 📝 环境配置
 

@@ -28,16 +28,28 @@ contract BeggingContract is Ownable {
     
     TopDonor[3] public topDonors;
     
+    // Time restriction variables (immutable - set only at deployment)
+    uint256 public immutable donationStartTime;
+    uint256 public immutable donationEndTime;
+    
     // Event: Records each donation
     event Donation(address indexed donor, uint256 amount, uint256 timestamp);
     
     // Event: Records fund withdrawal
     event Withdrawal(address indexed owner, uint256 amount, uint256 timestamp);
     
+    
     /**
-     * @dev Constructor, sets the contract owner
+     * @dev Constructor, sets the contract owner and time restriction
+     * @param startTime Start time of donation period (Unix timestamp)
+     * @param endTime End time of donation period (Unix timestamp)
      */
-    constructor() Ownable(msg.sender) {}
+    constructor(uint256 startTime, uint256 endTime) Ownable(msg.sender) {
+        require(startTime < endTime, "Start time must be before end time");
+        
+        donationStartTime = startTime;
+        donationEndTime = endTime;
+    }
     
     /**
      * @dev Updates the top 3 donors
@@ -46,20 +58,20 @@ contract BeggingContract is Ownable {
      */
     function _updateTopDonors(address donor, uint256 amount) private {
         // Directly compare 3 positions to avoid loops
-        if (amount > topDonors[0].amount) {
+        if (amount >= topDonors[0].amount) {
             // 1st place: Move 2nd and 3rd places, insert new 1st place
             topDonors[2] = topDonors[1];
             topDonors[1] = topDonors[0];
             topDonors[0] = TopDonor({donor: donor, amount: amount});
-        } else if (amount > topDonors[1].amount) {
+        } else if (amount >= topDonors[1].amount) {
             // 2nd place: Move 3rd place, insert new 2nd place
             topDonors[2] = topDonors[1];
             topDonors[1] = TopDonor({donor: donor, amount: amount});
-        } else if (amount > topDonors[2].amount) {
+        } else if (amount >= topDonors[2].amount) {
             // 3rd place: Direct replacement
             topDonors[2] = TopDonor({donor: donor, amount: amount});
         }
-        // If none are greater, then not in top 3, do nothing
+        // If none are greater or equal, then not in top 3, do nothing
     }
     
     /**
@@ -67,6 +79,10 @@ contract BeggingContract is Ownable {
      */
     function donate() external payable {
         require(msg.value > 0, "Donation amount must be greater than 0");
+        
+        // Check time restriction
+        require(block.timestamp >= donationStartTime, "Donation period has not started yet");
+        require(block.timestamp <= donationEndTime, "Donation period has ended");
         
         // If it's a new donor, increment donor count
         if (donations[msg.sender] == 0) {
@@ -154,5 +170,24 @@ contract BeggingContract is Ownable {
         }
         
         return (topDonorsList, topAmounts);
+    }
+    
+    
+    /**
+     * @dev Check if donation is currently allowed based on time restriction
+     * @return True if donation is allowed, false otherwise
+     */
+    function isDonationAllowed() external view returns (bool) {
+        return block.timestamp >= donationStartTime && block.timestamp <= donationEndTime;
+    }
+    
+    /**
+     * @dev Get time restriction information
+     * @return startTime Start time of donation period
+     * @return endTime End time of donation period
+     * @return currentTime Current block timestamp
+     */
+    function getTimeRestrictionInfo() external view returns (uint256 startTime, uint256 endTime, uint256 currentTime) {
+        return (donationStartTime, donationEndTime, block.timestamp);
     }
 }
